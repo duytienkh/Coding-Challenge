@@ -1,13 +1,13 @@
 testcase 1:		1.99
-testcase 2:		0.765
-testcase 3:		0.0636
-testcase 4:		1.9997
-testcase 5:		1.2745
-testcase 6:		0.830088
-testcase 7:		0.241514
-testcase 8:		0.114857
-testcase 9:		0.0324307
-testcase 10:	0.00060036
+testcase 2:		0.882
+testcase 3:		0.12
+testcase 4:		1.9999
+testcase 5:		1.39769
+testcase 6:		0.976864
+testcase 7:		0.384663
+testcase 8:		0.203652
+testcase 9:		0.0605822
+testcase 10:	0.0012
 testcase 11:	1.99999
 testcase 12:	0.999884
 testcase 13:	0.347721
@@ -15,7 +15,7 @@ testcase 14:	0.203656
 testcase 15:	0.0912365
 testcase 16:	0.0592205
 testcase 17:	0.0198361
-testcase 18:	0.00978238
+testcase 18:	0.0100532
 testcase 19:	0.00175797
-testcase 20:	4.00002e-06
-11.0454
+testcase 20:	8e-06
+11.7499

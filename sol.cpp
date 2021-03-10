@@ -66,9 +66,14 @@ pair<int, int> right(pair<int, int> p, int n){return {p.first, MOD(p.second + 1,
 pair<int, int> top(pair<int, int> p, int n){return {MOD(p.first - 1, n), p.second};}
 pair<int, int> bottom(pair<int, int> p, int n){return {MOD(p.first + 1, n), p.second};}
 
-void solve(string input, string output, bool showTable = 0, bool shuffleOrder = 0){
+int distance(pair<pair<int, int>, pair<int, int>> p, int n){
+    pair<int, int> fi = p.first;
+    pair<int, int> se = p.second;
+    return min(abs(fi.first - se.first), n - abs(fi.first - se.first)) + min(abs(fi.second - se.second), n - abs(fi.second - se.second));
+}
+
+void solve(string input, string output, bool showTable = 0){
     freopen(input.c_str(), "r", stdin);
-    //freopen(output.c_str(), "w", stdout);
     FILE* f = fopen(output.c_str(), "w");
     // INIT
     int n; // board size
@@ -95,11 +100,19 @@ void solve(string input, string output, bool showTable = 0, bool shuffleOrder = 
     // color list
     vector<int> colorList(m);
     for (int i = 0; i < m; i++) colorList[i] = i + 1;
-    if (shuffleOrder){
-        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-        shuffle(colorList.begin(), colorList.end(), std::default_random_engine(seed));
-        //for (auto p: colorList) cout << p << ' '; cout << "\n";
+    //unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    //shuffle(colorList.begin(), colorList.end(), std::default_random_engine(seed));
+    for (int i = 0; i < m; i++){
+        for (int j = i + 1; j < m; j++){
+            auto& u = colorPosition[colorList[i]];
+            auto& v = colorPosition[colorList[j]];
+
+            if (distance(u, n) > distance(v, n)){
+                swap(colorList[i], colorList[j]);
+            }
+        }
     }
+    //for (auto p: colorList) cout << p << ' '; cout << "\n";
     // ~color list
     
     for (int i: colorList){
@@ -258,16 +271,15 @@ void solve(string input, string output, bool showTable = 0, bool shuffleOrder = 
 
 void singleSolve(int i, double& highest_score){
     string inp = "input" + to_string(i) + ".txt";
-    string out = "output" + to_string(i) + ".txt";
-    //cout << "highest score: " << highest_score << '\n';
-    solve(inp, out, 0, 1);
-    double new_score = SingleTestGrader("input" + to_string(i) + ".txt", "output" + to_string(i) + ".txt");
+    string out = "output.txt";
+    solve(inp, out, 0);
+    double new_score = SingleTestGrader("input" + to_string(i) + ".txt", "output.txt");
     cout << "new score: " << new_score << "\n";
 
     if (new_score > highest_score){
         cout << highest_score << " -> " << new_score << "\n";
         highest_score = new_score;
-        string srcFile = "output" + to_string(i) + ".txt";
+        string srcFile = "output.txt";
         string desFile = "./save/output" + to_string(i) + ".txt";
         FILE* fSrc = fopen(srcFile.c_str(), "r");
         FILE* fDes = fopen(desFile.c_str(), "w");
@@ -301,23 +313,23 @@ int main(int argc, char** argv){
         for (int r = 0; r < count; r++){
             singleSolve(stoi(argv[1]), highest_score);
         }
-        cout << highest_score << "\n";
+        cout << "testcase " << argv[1] << ", highest score: " << highest_score << '\n';
     }
 }
 
 /* Note:
 N = 10
     01: 1.99
-    02: 0.8595
-    03: 0.0636 (constant)
+    02: 0.882
+    03: 0.12 (constant)
 N = 100
     04: 1.9999
-    05: 1.2745
-    06: 0.830088
-    07: 0.241514
-    08: 0.114857
-    09: 0.0324307
-    10: 0.00060036 (constant)
+    05: 1.39769
+    06: 0.9971
+    07: 0.384663
+    08: 0.207375
+    09: 0.0606065
+    10: 0.0012 (constant)
 N = 1000
     11: 1.99999
     12: 0.999884
@@ -328,5 +340,5 @@ N = 1000
     17: 0.0198361
     18: 0.0100532
     19: 0.00175797
-    20: 4.00002e-06 (constant)
+    20: 8e-06 (constant)
 */
