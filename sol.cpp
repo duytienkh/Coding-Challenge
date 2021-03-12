@@ -53,6 +53,7 @@ double SingleTestGrader(string inputFile, string outputFile) { // Ham tinh diem 
         }
     }
     f.close();
+    cerr << setprecision(9) << numCell << '/' << n*n << ' ' << numPair << '/' << m << '\n';
     return 1.0 * (1.0 * numCell / (n * n) + 1) * numPair / m;
 }
 
@@ -100,27 +101,25 @@ void solve(string input, string output, bool showTable = 0){
     // color list
     vector<int> colorList(m);
     for (int i = 0; i < m; i++) colorList[i] = i + 1;
-    //unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    //shuffle(colorList.begin(), colorList.end(), std::default_random_engine(seed));
-    for (int i = 0; i < m; i++){
-        for (int j = i + 1; j < m; j++){
-            auto& u = colorPosition[colorList[i]];
-            auto& v = colorPosition[colorList[j]];
-
-            if (distance(u, n) > distance(v, n)){
-                swap(colorList[i], colorList[j]);
-            }
-        }
-    }
+    // unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    // shuffle(colorList.begin(), colorList.end(), std::default_random_engine(seed));
+    sort(colorList.begin(), colorList.end(), [&](int i, int j) {
+        auto& u = colorPosition[i];
+        auto& v = colorPosition[j];
+        return distance(u, n) < distance(v, n);
+    });
     //for (auto p: colorList) cout << p << ' '; cout << "\n";
     // ~color list
     
-    for (int i: colorList){
-        vector<vector<int>> visited(color); 
+    vector<vector<bool>> visited(n, vector<bool>(n, 0)); 
+    for (int i: colorList) {
+         if (visited[colorPosition[i].first.first][colorPosition[i].first.second] ||
+            visited[colorPosition[i].second.first][colorPosition[i].second.second])
+                continue; 
         // bfs
         queue<pair<int, int>> q;
         q.push(colorPosition[i].first);
-        visited[colorPosition[i].first.first][colorPosition[i].first.second] = -1;
+        visited[colorPosition[i].first.first][colorPosition[i].first.second] = true;
         while (!q.empty()){
             pair<int, int> p = q.front();
             q.pop();
@@ -133,14 +132,14 @@ void solve(string input, string output, bool showTable = 0){
             unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
             shuffle(nodeList.begin(), nodeList.end(), std::default_random_engine(seed));
             for (auto node: nodeList){
-                if (visited[node.first][node.second] == 0 || visited[node.first][node.second] == i){
-                    visited[node.first][node.second] = -1;
+                if (!visited[node.first][node.second]){
+                    visited[node.first][node.second] = true;
                     q.push(node);
                     trace[node.first][node.second] = p;
                 }
             }            
 
-            if (visited[colorPosition[i].second.first][colorPosition[i].second.second] == -1){
+            if (visited[colorPosition[i].second.first][colorPosition[i].second.second]) {
                 existPath[i] = 1;
                 break;
             }
@@ -304,6 +303,16 @@ void solveAll(){
 }
 
 int main(int argc, char** argv){
+    // double sum = 0;
+    // for (int i = 1; i <= 20; ++i) {
+    //     double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
+    //     string x = to_string(i);
+    //     while (x.length() < 2) x = "0" + x;
+    //     cout << x << ": " << highest_score << '\n';
+    //     sum += highest_score;
+    // }
+    // cout << "sum = " << sum << '\n';
+    // return 0;
     if (argc == 1) solveAll();
     if (argc == 3){
         cout << "solving testcase " << argv[1] << "\n";
@@ -321,15 +330,15 @@ int main(int argc, char** argv){
 N = 10
     01: 1.99
     02: 0.882
-    03: 0.12 (constant)
+    03: 0.392
 N = 100
     04: 1.9999
     05: 1.39769
     06: 0.9971
     07: 0.384663
     08: 0.207375
-    09: 0.0606065
-    10: 0.0012 (constant)
+    09: 0.0637184
+    10: 0.0369954
 N = 1000
     11: 1.99999
     12: 0.999884
@@ -339,6 +348,6 @@ N = 1000
     16: 0.0592205
     17: 0.0198361
     18: 0.0100532
-    19: 0.00175797
-    20: 8e-06 (constant)
+    19: 0.00566499
+    20: 0.0029056
 */
