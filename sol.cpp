@@ -117,10 +117,13 @@ void solve(string input, string output, bool showTable = 0){
     });
     //for (auto p: colorList) cerr << p << ' '; cerr << "\n";
     // ~color list
-    
+    vector<bool> vip(m + 1);
+    for (int i = 0; i < min(100, m); ++i)
+        vip[colorList[i]] = true;
     vector<vector<int>> visited(n, vector<int>(n, 0)); 
     int cnt = 0;
     for (int i: colorList) {
+        vip[i] = false;
         ++cnt;
          if (visited[colorPosition[i].first.first][colorPosition[i].first.second] > cnt ||
             visited[colorPosition[i].second.first][colorPosition[i].second.second] > cnt)
@@ -135,7 +138,7 @@ void solve(string input, string output, bool showTable = 0){
             vector<pair<int, int>> nodeList{left(p, n), right(p, n), top(p, n), bottom(p, n)};
             shuffle(nodeList.begin(), nodeList.end(), std::default_random_engine(std::chrono::system_clock::now().time_since_epoch().count()));
             for (auto node: nodeList){
-                if (visited[node.first][node.second] < cnt) {
+                if (visited[node.first][node.second] < cnt && !vip[color[node.first][node.second]]) {
                     visited[node.first][node.second] = cnt;
                     q.push(node);
                     trace[node.first][node.second] = p;
