@@ -73,14 +73,6 @@ int distance(pair<pair<int, int>, pair<int, int>> p, int n){
     return min(abs(fi.first - se.first), n - abs(fi.first - se.first)) + min(abs(fi.second - se.second), n - abs(fi.second - se.second));
 }
 
-double euclidDistance(pair<pair<int, int>, pair<int, int>> p, int n){
-    auto fi = p.first;
-    auto se = p.second;
-    int dx = min(abs(fi.first - se.first), n - abs(fi.first - se.first)), 
-        dy = min(abs(fi.second - se.second), n - abs(fi.second - se.second));
-    return sqrt(dx * dx + dy * dy);
-}
-
 void solve(string input, string output, bool showTable = 0){
     freopen(input.c_str(), "r", stdin);
     FILE* f = fopen(output.c_str(), "w");
