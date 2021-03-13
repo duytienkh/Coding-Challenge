@@ -282,23 +282,25 @@ void solveAll(){
 }
 
 int main(int argc, char** argv){
-    double sum = 0;
-    ofstream f("result.txt");
-    for (int i = 1; i <= 20; ++i) {
-        if (i == 1)
-            cerr << "N = 10\n";
-        else if (i == 4)
-            cerr << "N = 100\n";
-        else if (i == 1)
-            cerr << "N = 1000\n";
-        double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
-        string x = to_string(i);
-        while (x.length() < 2) x = "0" + x;
-        f << x << ": " << highest_score << '\n';
-        sum += highest_score;
+    if (argc == 2 && argv[1][0] == 'c') {
+        double sum = 0;
+        ofstream f("result.txt");
+        for (int i = 1; i <= 20; ++i) {
+            if (i == 1)
+                cerr << "N = 10\n";
+            else if (i == 4)
+                cerr << "N = 100\n";
+            else if (i == 1)
+                cerr << "N = 1000\n";
+            double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
+            string x = to_string(i);
+            while (x.length() < 2) x = "0" + x;
+            f << x << ": " << highest_score << '\n';
+            sum += highest_score;
+        }
+        f << "sum = " << sum << '\n';
+        return 0;
     }
-    f << "sum = " << sum << '\n';
-    return 0;
     auto optimize_single = [](int i, int count) {
         cerr << "solving testcase " << i << "\n";
         double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
