@@ -113,34 +113,36 @@ void solve(string input, string output, bool showTable = 0){
     sort(colorList.begin(), colorList.end(), [&](int i, int j) {
         auto& u = colorPosition[i];
         auto& v = colorPosition[j];
-        return euclidDistance(u, n) < euclidDistance(v, n);
+        return distance(u, n) < distance(v, n);
     });
-    //for (auto p: colorList) cout << p << ' '; cout << "\n";
+    //for (auto p: colorList) cerr << p << ' '; cerr << "\n";
     // ~color list
     
-    vector<vector<bool>> visited(n, vector<bool>(n, 0)); 
+    vector<vector<int>> visited(n, vector<int>(n, 0)); 
+    int cnt = 0;
     for (int i: colorList) {
-         if (visited[colorPosition[i].first.first][colorPosition[i].first.second] ||
-            visited[colorPosition[i].second.first][colorPosition[i].second.second])
+        ++cnt;
+         if (visited[colorPosition[i].first.first][colorPosition[i].first.second] > cnt ||
+            visited[colorPosition[i].second.first][colorPosition[i].second.second] > cnt)
                 continue; 
         // bfs
         queue<pair<int, int>> q;
         q.push(colorPosition[i].first);
-        visited[colorPosition[i].first.first][colorPosition[i].first.second] = true;
+        visited[colorPosition[i].first.first][colorPosition[i].first.second] = cnt;
         while (!q.empty()){
             pair<int, int> p = q.front();
             q.pop();
             vector<pair<int, int>> nodeList{left(p, n), right(p, n), top(p, n), bottom(p, n)};
             shuffle(nodeList.begin(), nodeList.end(), std::default_random_engine(std::chrono::system_clock::now().time_since_epoch().count()));
             for (auto node: nodeList){
-                if (!visited[node.first][node.second]){
-                    visited[node.first][node.second] = true;
+                if (visited[node.first][node.second] < cnt) {
+                    visited[node.first][node.second] = cnt;
                     q.push(node);
                     trace[node.first][node.second] = p;
                 }
             }            
 
-            if (visited[colorPosition[i].second.first][colorPosition[i].second.second]) {
+            if (visited[colorPosition[i].second.first][colorPosition[i].second.second] == cnt) {
                 existPath[i] = 1;
                 break;
             }
@@ -153,10 +155,12 @@ void solve(string input, string output, bool showTable = 0){
 
             while (secondPos != firstPos){
                 color[secondPos.first][secondPos.second] = i;
+                visited[secondPos.first][secondPos.second] = m + 10; //mark as visted, and not re bfs
                 secondPos = trace[secondPos.first][secondPos.second];
             }
 
             color[firstPos.first][firstPos.second] = i;
+            visited[firstPos.first][firstPos.second] = m + 1;
         }
         // ~color path
     }
@@ -232,11 +236,11 @@ void solve(string input, string output, bool showTable = 0){
     if (showTable){
         for (int i = 0; i < n; i++){
             for (int j = 0; j < n; j++){
-                if (color[i][j] > 0) cout << color[i][j];
-                else cout << "_";
-                cout << ' ';
+                if (color[i][j] > 0) cerr << color[i][j];
+                else cerr << "_";
+                cerr << ' ';
             }
-            cout << "\n";
+            cerr << "\n";
         }
     }
     // ~PRINT TABLE
@@ -248,10 +252,10 @@ void singleSolve(int i, double& highest_score){
     string out = "output.txt";
     solve(inp, out, 0);
     double new_score = SingleTestGrader("input" + to_string(i) + ".txt", "output.txt");
-    cout << "new score: " << new_score << "\n";
+    cerr << "new score: " << new_score << "\n";
 
     if (new_score > highest_score){
-        cout << highest_score << " -> " << new_score << "\n";
+        cerr << highest_score << " -> " << new_score << "\n";
         highest_score = new_score;
         string srcFile = "output.txt";
         string desFile = "./save/output" + to_string(i) + ".txt";
@@ -272,57 +276,48 @@ void solveAll(){
     for (int i = 1; i <= 20; i++){
         string inp = "input" + to_string(i) + ".txt";
         string out = "output" + to_string(i) + ".txt";
-        cout << "solving testcase " << i << "\n";
+        cerr << "solving testcase " << i << "\n";
         solve(inp, out);
     }
 }
 
 int main(int argc, char** argv){
-    // double sum = 0;
-    // for (int i = 1; i <= 20; ++i) {
-    //     double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
-    //     string x = to_string(i);
-    //     while (x.length() < 2) x = "0" + x;
-    //     cout << x << ": " << highest_score << '\n';
-    //     sum += highest_score;
-    // }
-    // cout << "sum = " << sum << '\n';
-    // return 0;
-    if (argc == 1) solveAll();
+    double sum = 0;
+    ofstream f("result.txt");
+    for (int i = 1; i <= 20; ++i) {
+        if (i == 1)
+            cerr << "N = 10\n";
+        else if (i == 4)
+            cerr << "N = 100\n";
+        else if (i == 1)
+            cerr << "N = 1000\n";
+        double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
+        string x = to_string(i);
+        while (x.length() < 2) x = "0" + x;
+        f << x << ": " << highest_score << '\n';
+        sum += highest_score;
+    }
+    f << "sum = " << sum << '\n';
+    return 0;
+    auto optimize_single = [](int i, int count) {
+        cerr << "solving testcase " << i << "\n";
+        double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
+        for (int j = 0; j < count; ++j)
+            singleSolve(i, highest_score);
+        cerr << "testcase " << i << ", highest score: " << highest_score << '\n';
+    };
+    int count = 1;
+    if (argc == 2)
+        count = stoi(argv[2]);
+    cerr << "repeat: " << count << '\n';
+    if (argc == 1) {
+        for (int i =  1; i <= 20; ++i) {
+            optimize_single(i, count);
+        }
+    }
     if (argc == 3){
-        cout << "solving testcase " << argv[1] << "\n";
         int count = stoi(argv[2]);
         int i = stoi(argv[1]);
-        double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
-        for (int r = 0; r < count; r++){
-            singleSolve(stoi(argv[1]), highest_score);
-        }
-        cout << "testcase " << argv[1] << ", highest score: " << highest_score << '\n';
+        optimize_single(i, count);
     }
 }
-
-/* Note:
-N = 10
-    01: 1.99
-    02: 0.882
-    03: 0.398
-N = 100
-    04: 1.9999
-    05: 1.39769
-    06: 0.9971
-    07: 0.384663
-    08: 0.207375
-    09: 0.0637184
-    10: 0.0369954
-N = 1000
-    11: 1.99999
-    12: 0.999884
-    13: 0.347721
-    14: 0.203656
-    15: 0.0912365
-    16: 0.0592205
-    17: 0.0198361
-    18: 0.0100532
-    19: 0.00566499
-    20: 0.0029056
-*/
