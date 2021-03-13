@@ -68,9 +68,17 @@ pair<int, int> top(pair<int, int> p, int n){return {MOD(p.first - 1, n), p.secon
 pair<int, int> bottom(pair<int, int> p, int n){return {MOD(p.first + 1, n), p.second};}
 
 int distance(pair<pair<int, int>, pair<int, int>> p, int n){
-    pair<int, int> fi = p.first;
-    pair<int, int> se = p.second;
+    auto fi = p.first;
+    auto se = p.second;
     return min(abs(fi.first - se.first), n - abs(fi.first - se.first)) + min(abs(fi.second - se.second), n - abs(fi.second - se.second));
+}
+
+double euclidDistance(pair<pair<int, int>, pair<int, int>> p, int n){
+    auto fi = p.first;
+    auto se = p.second;
+    int dx = min(abs(fi.first - se.first), n - abs(fi.first - se.first)), 
+        dy = min(abs(fi.second - se.second), n - abs(fi.second - se.second));
+    return sqrt(dx * dx + dy * dy);
 }
 
 void solve(string input, string output, bool showTable = 0){
@@ -105,7 +113,7 @@ void solve(string input, string output, bool showTable = 0){
     sort(colorList.begin(), colorList.end(), [&](int i, int j) {
         auto& u = colorPosition[i];
         auto& v = colorPosition[j];
-        return distance(u, n) < distance(v, n);
+        return euclidDistance(u, n) < euclidDistance(v, n);
     });
     //for (auto p: colorList) cout << p << ' '; cout << "\n";
     // ~color list
