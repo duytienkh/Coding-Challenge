@@ -122,8 +122,7 @@ void solve(string input, string output, bool showTable = 0){
         while (!q.empty()){
             pair<int, int> p = q.front();
             q.pop();
-            pair<int, int> tmpArr[] = {left(p, n), right(p, n), top(p, n), bottom(p, n)};
-            vector<pair<int, int>> nodeList(tmpArr, tmpArr + 4);
+            vector<pair<int, int>> nodeList{left(p, n), right(p, n), top(p, n), bottom(p, n)};
             shuffle(nodeList.begin(), nodeList.end(), std::default_random_engine(std::chrono::system_clock::now().time_since_epoch().count()));
             for (auto node: nodeList){
                 if (!visited[node.first][node.second]){
