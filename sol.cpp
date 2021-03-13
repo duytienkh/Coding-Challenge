@@ -101,8 +101,7 @@ void solve(string input, string output, bool showTable = 0){
     // color list
     vector<int> colorList(m);
     for (int i = 0; i < m; i++) colorList[i] = i + 1;
-    // unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    // shuffle(colorList.begin(), colorList.end(), std::default_random_engine(seed));
+    // shuffle(colorList.begin(), colorList.end(), std::default_random_engine(std::chrono::system_clock::now().time_since_epoch().count()));
     sort(colorList.begin(), colorList.end(), [&](int i, int j) {
         auto& u = colorPosition[i];
         auto& v = colorPosition[j];
@@ -123,14 +122,9 @@ void solve(string input, string output, bool showTable = 0){
         while (!q.empty()){
             pair<int, int> p = q.front();
             q.pop();
-            pair<int, int> leftNode = left(p, n), rightNode = right(p, n), topNode = top(p, n), bottomNode = bottom(p, n);
-            vector<pair<int, int>> nodeList;
-            nodeList.push_back(leftNode);
-            nodeList.push_back(rightNode);
-            nodeList.push_back(topNode);
-            nodeList.push_back(bottomNode);
-            unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-            shuffle(nodeList.begin(), nodeList.end(), std::default_random_engine(seed));
+            pair<int, int> tmpArr[] = {left(p, n), right(p, n), top(p, n), bottom(p, n)};
+            vector<pair<int, int>> nodeList(tmpArr, tmpArr + 4);
+            shuffle(nodeList.begin(), nodeList.end(), std::default_random_engine(std::chrono::system_clock::now().time_since_epoch().count()));
             for (auto node: nodeList){
                 if (!visited[node.first][node.second]){
                     visited[node.first][node.second] = true;
