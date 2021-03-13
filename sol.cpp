@@ -169,59 +169,33 @@ void solve(string input, string output, bool showTable = 0){
             fi = trace[se.first][se.second];
             pair<int, int> fTop = top(fi, n), fBottom = bottom(fi, n), fLeft = left(fi, n), fRight = right(fi, n);
             pair<int, int> sTop = top(se, n), sBottom = bottom(se, n), sLeft = left(se, n), sRight = right(se, n);
+            vector<pair<pair<int, int>, pair<int, int>>> adjPair;
             if (se == right(fi, n) || se == left(fi, n)){ // in row
-                vector<pair<pair<int, int>, pair<int, int>>> inRowPair;
-                inRowPair.push_back({fTop, sTop});
-                inRowPair.push_back({fBottom, sBottom});
-                unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-                shuffle(inRowPair.begin(), inRowPair.end(), std::default_random_engine(seed));
-                if (!existPath[color[inRowPair[0].first.first][inRowPair[0].first.second]] && !existPath[color[inRowPair[0].second.first][inRowPair[0].second.second]]){
-                    trace[se.first][se.second] = inRowPair[0].second;
-                    trace[inRowPair[0].second.first][inRowPair[0].second.second] = inRowPair[0].first;
-                    trace[inRowPair[0].first.first][inRowPair[0].first.second] = fi;
-                    
-                    color[inRowPair[0].second.first][inRowPair[0].second.second] = i;
-                    color[inRowPair[0].first.first][inRowPair[0].first.second] = i;
-                    continue;
-                }
-                if (!existPath[color[inRowPair[1].first.first][inRowPair[1].first.second]] && !existPath[color[inRowPair[1].second.first][inRowPair[1].second.second]]){
-                    trace[se.first][se.second] = inRowPair[1].second;
-                    trace[inRowPair[1].second.first][inRowPair[1].second.second] = inRowPair[1].first;
-                    trace[inRowPair[1].first.first][inRowPair[1].first.second] = fi;
-                    
-                    color[inRowPair[1].second.first][inRowPair[1].second.second] = i;
-                    color[inRowPair[1].first.first][inRowPair[1].first.second] = i;
-                    continue;
-                }
+                adjPair.push_back({fTop, sTop});
+                adjPair.push_back({fBottom, sBottom});
+            } else { // in col
+                adjPair.push_back({fLeft, sLeft});
+                adjPair.push_back({fRight, sRight});
             }
-            if (se == top(fi, n) || se == bottom(fi, n)){ // in column
-                vector<pair<pair<int, int>, pair<int, int>>> inColPair;
-                inColPair.push_back({fRight, sRight});
-                inColPair.push_back({fLeft, sLeft});
-                unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-                shuffle(inColPair.begin(), inColPair.end(), std::default_random_engine(seed));
+            shuffle(adjPair.begin(), adjPair.end(), std::default_random_engine(std::chrono::system_clock::now().time_since_epoch().count()));
+            bool expanded = 0;
+            for (auto p: adjPair){
+                auto f = p.first, s = p.second;
+                if (!existPath[color[f.first][f.second]] && !existPath[color[s.first][s.second]]){
+                    trace[se.first][se.second] = s;
+                    trace[s.first][s.second] = f;
+                    trace[f.first][f.second] = fi;
 
-                if (!existPath[color[inColPair[0].first.first][inColPair[0].first.second]] && !existPath[color[inColPair[0].second.first][inColPair[0].second.second]]){
-                    trace[se.first][se.second] = inColPair[0].second;
-                    trace[inColPair[0].second.first][inColPair[0].second.second] = inColPair[0].first;
-                    trace[inColPair[0].first.first][inColPair[0].first.second] = fi;
-                    
-                    color[inColPair[0].second.first][inColPair[0].second.second] = i;
-                    color[inColPair[0].first.first][inColPair[0].first.second] = i;
-                    continue;
-                }
-                if (!existPath[color[inColPair[1].first.first][inColPair[1].first.second]] && !existPath[color[inColPair[1].second.first][inColPair[1].second.second]]){
-                    trace[se.first][se.second] = inColPair[1].second;
-                    trace[inColPair[1].second.first][inColPair[1].second.second] = inColPair[1].first;
-                    trace[inColPair[1].first.first][inColPair[1].first.second] = fi;
-                    
-                    color[inColPair[1].second.first][inColPair[1].second.second] = i;
-                    color[inColPair[1].first.first][inColPair[1].first.second] = i;
-                    continue;
+                    color[s.first][s.second] = color[f.first][f.second] = i;
+
+                    expanded = 1;
+                    break;
                 }
             }
 
-            se = trace[se.first][se.second];            
+            if (!expanded){
+                se = trace[se.first][se.second];
+            }
         }
         // ~expand
         // trace
@@ -245,7 +219,7 @@ void solve(string input, string output, bool showTable = 0){
     }
     // PRINT
     for (auto p: path){
-        fprintf(f, "%d\n", p.size());
+        fprintf(f, "%d\n", (int)p.size());
         for (auto q: p){
             fprintf(f, "%d %d ", q.first + 1, q.second + 1);
         }
