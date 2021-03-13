@@ -251,10 +251,10 @@ void solve(string input, string output, bool showTable = 0){
 }
 
 void singleSolve(int i, double& highest_score){
-    string inp = "input" + to_string(i) + ".txt";
+    string inp = "./input/input" + to_string(i) + ".txt";
     string out = "output.txt";
     solve(inp, out, 0);
-    double new_score = SingleTestGrader("input" + to_string(i) + ".txt", "output.txt");
+    double new_score = SingleTestGrader("./input/input" + to_string(i) + ".txt", "output.txt");
     cerr << "new score: " << new_score << "\n";
 
     if (new_score > highest_score){
@@ -275,15 +275,6 @@ void singleSolve(int i, double& highest_score){
     }
 }
 
-void solveAll(){
-    for (int i = 1; i <= 20; i++){
-        string inp = "input" + to_string(i) + ".txt";
-        string out = "output" + to_string(i) + ".txt";
-        cerr << "solving testcase " << i << "\n";
-        solve(inp, out);
-    }
-}
-
 int main(int argc, char** argv){
     if (argc == 2 && argv[1][0] == 'c') {
         double sum = 0;
@@ -295,7 +286,7 @@ int main(int argc, char** argv){
                 cerr << "N = 100\n";
             else if (i == 1)
                 cerr << "N = 1000\n";
-            double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
+            double highest_score = SingleTestGrader("./input/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
             string x = to_string(i);
             while (x.length() < 2) x = "0" + x;
             f << x << ": " << highest_score << '\n';
@@ -306,7 +297,7 @@ int main(int argc, char** argv){
     }
     auto optimize_single = [](int i, int count) {
         cerr << "solving testcase " << i << "\n";
-        double highest_score = SingleTestGrader("./save/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
+        double highest_score = SingleTestGrader("./input/input" + to_string(i) + ".txt", "./save/output" + to_string(i) + ".txt");
         for (int j = 0; j < count; ++j)
             singleSolve(i, highest_score);
         cerr << "testcase " << i << ", highest score: " << highest_score << '\n';
