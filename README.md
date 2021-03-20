@@ -1,8 +1,8 @@
-# [Tenhienthi_0037](https://www.youtube.com/watch?v=dQw4w9WgXcQ) ![C++ Version](https://img.shields.io/badge/C%2B%2B-17-blue) [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/duytienkh/Coding-Challenge/blob/master/LICENSE)
+# [Tenhienthi_0037](https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s) ![C++ Version](https://img.shields.io/badge/C%2B%2B-17-blue) [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/duytienkh/Coding-Challenge/blob/master/LICENSE)
 
 ## Thành viên:
-1. [Trần Duy Tiến](https://www.youtube.com/watch?v=dQw4w9WgXcQ) - 19120395
-2. [Lê Duy Thức](https://www.youtube.com/watch?v=dQw4w9WgXcQ) - 19120037
+1. [Trần Duy Tiến](https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s) - 19120395
+2. [Lê Duy Thức](https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s) - 19120037
 
 ---
 
