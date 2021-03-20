@@ -1,4 +1,4 @@
-# [Tenhienthi_0037](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+# [Tenhienthi_0037](https://www.youtube.com/watch?v=dQw4w9WgXcQ) ![C++ Version](https://img.shields.io/badge/C%2B%2B-17-blue) [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/duytienkh/Coding-Challenge/blob/master/LICENSE)
 
 ## Thành viên:
 1. [Trần Duy Tiến](https://www.youtube.com/watch?v=dQw4w9WgXcQ) - 19120395
