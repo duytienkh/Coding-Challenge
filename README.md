@@ -38,7 +38,7 @@ Gần nhau ở đây bọn mình có dùng 2 cách:
 - Theo [khoảng cách Euclid](https://en.wikipedia.org/wiki/Euclidean_distance)
 - Theo [khoảng cách Manhattan](https://en.wikipedia.org/wiki/Taxicab_geometry), có thay đổi 1 chút vì đề có cho phép đi qua cạnh. 
 
-Bọn mình thấy 2 cách này thi cách dùng khoảng cách Manhattan cho kết quả tốt hơn 1 tí, dù không quá khác biệc so với khoảng cách Euclid. 
+Bọn mình thấy 2 cách này thi cách dùng khoảng cách Manhattan cho kết quả tốt hơn 1 tí, dù không quá khác biệt so với khoảng cách Euclid. 
 
 ### 2
 Bọn mình không code cả 2 thứ này vào cùng 1 file, mà ban đầu tụi mình chạy hết các test với thuật toán 1 trước, sau đó lưu kết quả lại, rồi code đè lên thuật toán 2. Giữa các lần này thì bọn mình sẽ lưu lại bằng commit. Các bạn có thể xem lại các code/output cũ bằng cách xem commit history.
