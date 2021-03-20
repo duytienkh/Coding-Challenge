@@ -1,4 +1,4 @@
-# [Tenhienthi_0037](https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s) ![C++ Version](https://img.shields.io/badge/C%2B%2B-17-blue) [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/duytienkh/Coding-Challenge/blob/master/LICENSE)
+# [Tenhienthi_0037](https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s) ![C++ Version](https://img.shields.io/badge/C%2B%2B-17-blue) ![g++ Version](https://img.shields.io/badge/g%2B%2B-9.3.0-blue) [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/duytienkh/Coding-Challenge/blob/master/LICENSE)
 
 ## Thành viên:
 1. [Trần Duy Tiến](https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s) - 19120395
@@ -6,6 +6,17 @@
 
 ---
 
+## Cài đặt chương trình
+
+- Clone toàn bộ repo này về: `git clone https://github.com/duytienkh/Coding-Challenge.git`
+- Chuyển thư mục tới thư mục chứa code: `cd Coding-Challenge/code`
+- Compile code: `g++ --std=c++17 main.cpp -o main.exe`
+- Chạy `./main.exe -h` để xem hướng dẫn.
+
+
+---
+
+## Lời giải
 Dưới đây là lời giải của nhóm mình cho bài toán Flow-game.
 
 Thuật toán của nhóm mình gồm 2 bước chính:
