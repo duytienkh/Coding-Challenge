@@ -31,16 +31,18 @@ Sau khi hoàn thành bước 1, ở bước 2 này thì đơn giản hơn, bọn
 ### 1
 Gần nhau ở đây bọn mình có dùng 2 cách:
 - Theo [khoảng cách Euclid](https://en.wikipedia.org/wiki/Euclidean_distance)
-- Theo [khoảng cách Manhattan](https://en.wikipedia.org/wiki/Taxicab_geometry)
+- Theo [khoảng cách Manhattan](https://en.wikipedia.org/wiki/Taxicab_geometry), có thay đổi 1 chút vì đề có cho phép đi qua cạnh. 
+
+Bọn mình thấy 2 cách này thi cách dùng khoảng cách Manhattan cho kết quả tốt hơn 1 tí, dù không quá khác biệc so với khoảng cách Euclid. 
 
 ### 2
-Bọn mình không code cả 2 thứ này vào cùng 1 file, mà ban đầu tụi mình chạy hết các test với thuật toán 1 trước, sau đó lưu kết quả lại, rồi code đè lên thuật toán 2.
+Bọn mình không code cả 2 thứ này vào cùng 1 file, mà ban đầu tụi mình chạy hết các test với thuật toán 1 trước, sau đó lưu kết quả lại, rồi code đè lên thuật toán 2. Giữa các lần này thì bọn mình sẽ lưu lại bằng commit. Các bạn có thể xem lại các code/output cũ bằng cách xem commit history.
 
 ### 3
 Trong code thì ở một số nơi bọn mình có dùng random để hi vọng rằng kết quả sẽ tốt hơn, ví dụ ở bước 2, bước mở rộng các đường đi thì bọn mình random thứ tự duyệt các hướng. Hoặc ban đầu thì thứ tự nối các cặp ô của tụi mình ở bước 1 là random chứ không phải là sắp xếp theo khoảng cách tăng dần. 
 
 ### 4
-Ở lần thử đầu tiên, số điểm bọn mình đạt được là khoảng 11,7 điểm (Đủ để vô địch), nhưng do bọn mình không biết được bảng xếp hạng nên cố gắng optimize thêm. 
+Ở lần thử đầu tiên, số điểm bọn mình đạt được là khoảng 11,7 điểm (đủ để vô địch), nhưng do bọn mình không biết được bảng xếp hạng nên cố gắng optimize thêm. 
 
 Thuật toán ở bước 2 của tụi mình khá tốt, mình thấy các test thì bọn mình đều phủ được hơn 90% số lượng các ô. Do đó, bọn mình tập trung vào tối ưu bước 1 nhiều hơn, còn bước 2 gần như không thay đổi gì.
 
