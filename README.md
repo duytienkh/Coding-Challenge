@@ -4,12 +4,15 @@
 1. [Trần Duy Tiến](https://www.youtube.com/watch?v=dQw4w9WgXcQ) - 19120395
 2. [Lê Duy Thức](https://www.youtube.com/watch?v=dQw4w9WgXcQ) - 19120037
 
+---
 
 Dưới đây là lời giải của nhóm mình cho bài toán Flow-game.
 
 Thuật toán của nhóm mình gồm 2 bước chính:
 1. Tối ưu số lượng cặp nối được
 2. Tối ưu số ô đi qua. 
+
+---
 
 ## 1. Tối ưu số lượng cặp nối được
 
@@ -25,6 +28,8 @@ Do test của BTC có phần khá lạ đó là có những test tất cả các
 
 Sau khi hoàn thành bước 1, ở bước 2 này thì đơn giản hơn, bọn mình chỉ dùng 1 thuật toán cho mọi loại test:
 - Với mỗi đường đi tìm được, bọn mình sẽ đi trên đường đi đó, với 2 cặp ô kề nhau, bọn mình sẽ nhìn sang 4 hướng xem các hướng đó có là ô trống hay không. Nếu hướng đó là ô trống thì bọn mình sẽ "nở" đường đi đó sang ô đó. 
+
+---
 
 ## Note
 
