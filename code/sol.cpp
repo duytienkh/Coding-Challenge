@@ -5,8 +5,8 @@
 
 using namespace std;
 
-const string INPUT_FOLDER = "./input/";
-const string OUTPUT_FOLDER = "./save/";
+const string INPUT_FOLDER = "../input/";
+const string OUTPUT_FOLDER = "../save/";
 
 void singleSolve(int i, double& highestScore){
     string inp = INPUT_FOLDER + "input" + to_string(i) + ".txt";
@@ -57,6 +57,7 @@ int main(int argc, const char** argv){
     parser.addOption("r", "Get result of current outputs");
     parser.addOption("t", "Specify the test case will run", "test_id");
     parser.addOption("l", "Specify the number of time each test case will run ", "cnt");
+
     if (!parser.parse(argc, argv)) {
         return 0;
     }
