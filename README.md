@@ -1,3 +1,10 @@
+# [Tenhienthi_0037](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+
+## Thành viên:
+1. [Trần Duy Tiến](https://www.youtube.com/watch?v=dQw4w9WgXcQ) - 19120395
+2. [Lê Duy Thức](https://www.youtube.com/watch?v=dQw4w9WgXcQ) - 19120037
+
+
 Dưới đây là lời giải của nhóm mình cho bài toán Flow-game.
 
 Thuật toán của nhóm mình gồm 2 bước chính:
